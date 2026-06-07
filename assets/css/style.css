@@ -359,6 +359,7 @@ article h2 {
   font-size: 0.95rem;
   color: #666;
   margin-bottom: 0.9rem;
+  text-align: left;
 }
 
 .music-tags {
@@ -370,7 +371,7 @@ article h2 {
 .music-tag {
   display: inline-block;
   font-size: 0.83rem;
-  padding: 0.15rem 0.75rem;
+  padding: 0.08rem 0.5rem;
   border-radius: 20px;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f5f8ff;
@@ -378,6 +379,7 @@ article h2 {
   border: 1px solid #dce5f5;
   vertical-align: middle;
   line-height: 1.6;
+  margin: 0.1rem 0.15rem;
 }
 
 .music-subsection {
@@ -411,6 +413,15 @@ article h2 {
 
 .music-artists li:last-child {
   border-bottom: none;
+}
+
+.music-artists a {
+  color: #5572a8;
+  text-decoration: none;
+}
+
+.music-artists a:hover {
+  text-decoration: underline;
 }
 
 .music-artists-more {
