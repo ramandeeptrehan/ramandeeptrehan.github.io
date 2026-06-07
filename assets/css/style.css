@@ -383,10 +383,24 @@ article h2 {
 
 .music-photo {
   width: 100%;
-  max-width: 480px;
+  max-width: 400px;
   border-radius: 8px;
   margin-bottom: 1.2rem;
   display: block;
+}
+
+.drum-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 1.2rem 0;
+}
+
+.drum-photos img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .music-subsection {
