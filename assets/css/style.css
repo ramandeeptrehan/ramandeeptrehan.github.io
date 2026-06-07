@@ -90,6 +90,11 @@ nav a.active {
   max-width: 480px;
 }
 
+.highlight {
+  color: #4a90d9;
+  font-weight: normal;
+}
+
 .justified {
   text-align: justify;
   max-width: 640px;
