@@ -79,9 +79,14 @@ nav a.active {
 }
 
 .tagline {
-  font-size: 0.95rem;
+  font-size: 0.78rem;
   color: #aaa;
   margin-bottom: 0.6rem;
+}
+
+.interests {
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .bio {
@@ -102,6 +107,7 @@ nav a.active {
 }
 
 .interests {
+  margin-top: 1.8rem;
   margin-bottom: 1rem;
 }
 
