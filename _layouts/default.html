@@ -23,10 +23,15 @@
     </nav>
   </header>
 
-  {{ content }}
+  <main>{{ content }}</main>
 
   <footer>
-    &copy; {{ site.title }}, {{ site.time | date: "%Y" }}{% if page.url == '/writings/' %} &nbsp;&middot;&nbsp; Design inspired by <a href="https://zenhabits.net/about/" target="_blank">Leo Babauta</a>{% endif %}
+    <div class="footer-inner">
+      <span>&copy; {{ site.title }}, {{ site.time | date: "%Y" }}</span>
+      {% if page.url == '/writings/' %}
+      <span class="footer-credit">Design inspired by <a href="https://zenhabits.net/about/" target="_blank">Leo Babauta</a></span>
+      {% endif %}
+    </div>
   </footer>
 
 </body>

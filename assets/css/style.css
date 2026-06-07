@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: Georgia, serif;
   max-width: 860px;
@@ -13,6 +17,13 @@ body {
   line-height: 1.8;
   background: #fff;
   text-align: justify;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 /* Header */
@@ -325,6 +336,113 @@ article h2 {
   color: #5572a8;
 }
 
+/* Music */
+.music-page {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.music-section {
+  margin-bottom: 3rem;
+}
+
+.music-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.music-body {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.9rem;
+}
+
+.music-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.music-tag {
+  display: inline-block;
+  font-size: 0.83rem;
+  padding: 0.15rem 0.75rem;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f8ff;
+  color: #5572a8;
+  border: 1px solid #dce5f5;
+  vertical-align: middle;
+  line-height: 1.6;
+}
+
+.music-subsection {
+  margin-top: 1.5rem;
+  padding-left: 1.2rem;
+  border-left: 2px solid #dce5f5;
+}
+
+.music-sublabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.music-artists {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.music-artists li {
+  font-size: 0.9rem;
+  color: #555;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.music-artists li:last-child {
+  border-bottom: none;
+}
+
+.music-artists-more {
+  color: #bbb !important;
+  letter-spacing: 0.1em;
+}
+
+.music-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.music-city {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: #666;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.city-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
 /* Contact */
 .contact-list {
   display: flex;
@@ -376,10 +494,22 @@ article h2 {
 
 /* Footer */
 footer {
-  margin-top: 4rem;
+  margin-top: 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 0.8rem;
   color: #ccc;
-  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.footer-credit {
+  color: #ccc;
 }
 
 footer a {
