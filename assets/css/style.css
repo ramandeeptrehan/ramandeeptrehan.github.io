@@ -130,14 +130,14 @@ nav a.active {
   border: 1px solid transparent;
 }
 
-.interests ul li:nth-child(1) { background: #e8f0fe; color: #3367d6; border-color: #c5d5f8; } /* Distributed Systems - blue */
-.interests ul li:nth-child(2) { background: #f3e8fd; color: #7b2fbf; border-color: #dbb8f7; } /* AI Infrastructure - purple */
-.interests ul li:nth-child(3) { background: #e6f4ea; color: #1e7e34; border-color: #b7dfc1; } /* Databases - green */
-.interests ul li:nth-child(4) { background: #fff3e0; color: #e65100; border-color: #fcd49a; } /* Mathematics - orange */
-.interests ul li:nth-child(5) { background: #e0f7fa; color: #00757f; border-color: #9de4eb; } /* ML - teal */
-.interests ul li:nth-child(6) { background: #fce4ec; color: #c0175d; border-color: #f7b3cc; } /* Algorithms - pink */
-.interests ul li:nth-child(7) { background: #fffde7; color: #a07800; border-color: #f5e07a; } /* Music - amber */
-.interests ul li:nth-child(8) { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; } /* Long-distance cycling - forest green */
+.interests ul li:nth-child(1) { background: #f0f4ff; color: #5572a8; border-color: #d0d9f0; }
+.interests ul li:nth-child(2) { background: #f5f0ff; color: #7a65a8; border-color: #ddd5f0; }
+.interests ul li:nth-child(3) { background: #f0fff4; color: #4a8a5f; border-color: #c8e8d4; }
+.interests ul li:nth-child(4) { background: #fff8f0; color: #a07050; border-color: #f0dcc8; }
+.interests ul li:nth-child(5) { background: #f0fafa; color: #4a8a8a; border-color: #c0e0e0; }
+.interests ul li:nth-child(6) { background: #fff0f5; color: #a05878; border-color: #f0c8d8; }
+.interests ul li:nth-child(7) { background: #fdfaf0; color: #8a7840; border-color: #e8ddb0; }
+.interests ul li:nth-child(8) { background: #f0f8f0; color: #507850; border-color: #c0d8c0; }
 
 .links {
   display: flex;
