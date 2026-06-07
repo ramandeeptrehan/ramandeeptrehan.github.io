@@ -1,0 +1,18 @@
+title: Raman Trehan
+description: Senior Software Engineer at Meta, Menlo Park, California
+url: "https://ramantrehan.com"
+baseurl: ""
+
+twitter_username: RamandeepTrehan
+linkedin_username: ramandeeptrehan
+
+permalink: /writings/:slug/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
