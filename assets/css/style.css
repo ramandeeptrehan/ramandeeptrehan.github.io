@@ -458,6 +458,17 @@ article h2 {
   font-style: italic;
 }
 
+.music-closing {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #444;
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #eee;
+  text-align: left;
+}
+
 .music-artists a {
   color: #5572a8;
   text-decoration: none;
