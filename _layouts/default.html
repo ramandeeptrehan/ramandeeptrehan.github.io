@@ -26,7 +26,7 @@
   {{ content }}
 
   <footer>
-    &copy; {{ site.title }}, {{ site.time | date: "%Y" }} &nbsp;&middot;&nbsp; Design inspired by <a href="https://zenhabits.net/about/" target="_blank">Leo Babauta</a>
+    &copy; {{ site.title }}, {{ site.time | date: "%Y" }}{% if page.url contains '/writings' %} &nbsp;&middot;&nbsp; Design inspired by <a href="https://zenhabits.net/about/" target="_blank">Leo Babauta</a>{% endif %}
   </footer>
 
 </body>
