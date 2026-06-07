@@ -336,7 +336,8 @@ article h2 {
 }
 
 /* Music */
-.music-page {
+.music-page,
+.talks-page {
   max-width: 560px;
   margin: 0 auto;
 }
@@ -481,6 +482,37 @@ article h2 {
 .music-artists-more {
   color: #bbb !important;
   letter-spacing: 0.1em;
+}
+
+.talk-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.talk-list li {
+  display: flex;
+  flex-direction: column;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 0.2rem;
+}
+
+.talk-list li:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+
+.talk-venue {
+  font-size: 0.92rem;
+  color: #444;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.talk-topic {
+  font-size: 0.82rem;
+  color: #aaa;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-style: italic;
 }
 
 .music-cities {
