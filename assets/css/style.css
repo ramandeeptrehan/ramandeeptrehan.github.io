@@ -257,69 +257,52 @@ article h2 {
   color: #555;
 }
 
-/* Writings list */
-.writings-list {
+/* Writings archive */
+.writings-archive {
   max-width: 560px;
-  margin: 0 auto;
 }
 
-.writings-year {
-  margin-bottom: 2.5rem;
-}
-
-.year-heading {
+.archive-year {
   font-size: 1.1rem;
   font-weight: normal;
   color: #333;
-  margin-bottom: 1.2rem;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 0.4rem;
+  margin: 2rem 0 0.5rem;
 }
 
-.writings-month {
-  margin-bottom: 1.5rem;
-}
-
-.month-heading {
-  font-size: 0.78rem;
+.archive-month {
+  font-size: 0.95rem;
   font-weight: normal;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #bbb;
-  margin-bottom: 0.6rem;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #888;
+  margin: 1.2rem 0 0.4rem;
 }
 
-.writings-list ul {
+.archive-posts {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.writings-list li {
+.archive-posts li {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f8f8f8;
+  gap: 0.8rem;
+  padding: 0.25rem 0;
 }
 
-.day {
-  font-size: 0.82rem;
+.archive-day {
+  font-size: 0.85rem;
   color: #ccc;
-  min-width: 20px;
-  text-align: right;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  min-width: 22px;
 }
 
-.writings-list li a {
+.archive-posts a {
   color: #333;
   text-decoration: none;
   font-size: 0.97rem;
 }
 
-.writings-list li a:hover {
-  color: #5572a8;
+.archive-posts a:hover {
+  text-decoration: underline;
 }
 
 /* Contact */
