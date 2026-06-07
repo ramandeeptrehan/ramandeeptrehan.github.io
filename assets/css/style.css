@@ -284,21 +284,19 @@ article h2 {
 
 .archive-posts li {
   display: flex;
-  align-items: baseline;
-  gap: 0.8rem;
-  padding: 0.25rem 0;
+  flex-direction: column;
+  padding: 0.5rem 0;
 }
 
 .archive-day {
-  font-size: 0.85rem;
-  color: #ccc;
-  min-width: 22px;
+  font-size: 0.82rem;
+  color: #bbb;
 }
 
 .archive-posts a {
   color: #333;
   text-decoration: none;
-  font-size: 0.97rem;
+  font-size: 1rem;
 }
 
 .archive-posts a:hover {
