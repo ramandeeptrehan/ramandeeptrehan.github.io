@@ -130,14 +130,7 @@ nav a.active {
   border: 1px solid transparent;
 }
 
-.interests ul li:nth-child(1) { background: #f0f4ff; color: #5572a8; border-color: #d0d9f0; }
-.interests ul li:nth-child(2) { background: #f5f0ff; color: #7a65a8; border-color: #ddd5f0; }
-.interests ul li:nth-child(3) { background: #f0fff4; color: #4a8a5f; border-color: #c8e8d4; }
-.interests ul li:nth-child(4) { background: #fff8f0; color: #a07050; border-color: #f0dcc8; }
-.interests ul li:nth-child(5) { background: #f0fafa; color: #4a8a8a; border-color: #c0e0e0; }
-.interests ul li:nth-child(6) { background: #fff0f5; color: #a05878; border-color: #f0c8d8; }
-.interests ul li:nth-child(7) { background: #fdfaf0; color: #8a7840; border-color: #e8ddb0; }
-.interests ul li:nth-child(8) { background: #f0f8f0; color: #507850; border-color: #c0d8c0; }
+.interests ul li { background: #f7f4ef; color: #7a7060; border-color: #e2ddd6; }
 
 .links {
   display: flex;
