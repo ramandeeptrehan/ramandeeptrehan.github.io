@@ -90,6 +90,11 @@ nav a.active {
   max-width: 480px;
 }
 
+.justified {
+  text-align: justify;
+  max-width: 640px;
+}
+
 .interests {
   margin-bottom: 1rem;
 }
