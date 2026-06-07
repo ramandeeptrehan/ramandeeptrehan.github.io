@@ -382,6 +382,14 @@ article h2 {
   margin: 0 0.1rem;
 }
 
+.music-photo {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
 .music-subsection {
   margin-top: 1.5rem;
   padding-left: 1.2rem;
@@ -413,6 +421,28 @@ article h2 {
 
 .music-artists li:last-child {
   border-bottom: none;
+}
+
+.year-highlight {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+.music-quote {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.88rem;
+  color: #888;
+  font-style: italic;
+  margin: 0;
+}
+
+.music-quote-featured {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  color: #444;
+  font-style: italic;
 }
 
 .music-artists a {
