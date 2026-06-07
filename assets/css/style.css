@@ -123,14 +123,21 @@ nav a.active {
 
 .interests ul li {
   font-size: 0.83rem;
-  color: #444;
-  background: #fff;
-  border: 1px solid #ddd;
   padding: 0.25rem 0.85rem;
   border-radius: 20px;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: 0.01em;
+  border: 1px solid transparent;
 }
+
+.interests ul li:nth-child(1) { background: #e8f0fe; color: #3367d6; border-color: #c5d5f8; } /* Distributed Systems - blue */
+.interests ul li:nth-child(2) { background: #f3e8fd; color: #7b2fbf; border-color: #dbb8f7; } /* AI Infrastructure - purple */
+.interests ul li:nth-child(3) { background: #e6f4ea; color: #1e7e34; border-color: #b7dfc1; } /* Databases - green */
+.interests ul li:nth-child(4) { background: #fff3e0; color: #e65100; border-color: #fcd49a; } /* Mathematics - orange */
+.interests ul li:nth-child(5) { background: #e0f7fa; color: #00757f; border-color: #9de4eb; } /* ML - teal */
+.interests ul li:nth-child(6) { background: #fce4ec; color: #c0175d; border-color: #f7b3cc; } /* Algorithms - pink */
+.interests ul li:nth-child(7) { background: #fffde7; color: #a07800; border-color: #f5e07a; } /* Music - amber */
+.interests ul li:nth-child(8) { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; } /* Long-distance cycling - forest green */
 
 .links {
   display: flex;
