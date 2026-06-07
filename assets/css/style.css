@@ -237,3 +237,45 @@ footer {
   font-size: 0.8rem;
   color: #ccc;
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+  body {
+    padding: 1.5rem 1.2rem;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  nav {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero-text h2 {
+    font-size: 1.3rem;
+  }
+
+  table td:last-child {
+    display: none;
+  }
+}
