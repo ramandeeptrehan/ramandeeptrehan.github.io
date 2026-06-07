@@ -2,15 +2,27 @@
 layout: default
 ---
 
-{% if site.posts.size > 0 %}
-<ul class="writings-list">
-  {% for post in site.posts %}
-  <li>
-    <a href="{{ post.url }}">{{ post.title }}</a>
-    <span>{{ post.date | date: "%b %Y" }}</span>
-  </li>
+{% assign postsByYear = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+
+<div class="writings-list">
+  {% for year in postsByYear %}
+  <div class="writings-year">
+    <h3 class="year-heading">{{ year.name }}</h3>
+
+    {% assign postsByMonth = year.items | group_by_exp: "post", "post.date | date: '%B'" %}
+    {% for month in postsByMonth %}
+    <div class="writings-month">
+      <h4 class="month-heading">{{ month.name }}</h4>
+      <ul>
+        {% for post in month.items %}
+        <li>
+          <span class="day">{{ post.date | date: "%-d" }}</span>
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
   {% endfor %}
-</ul>
-{% else %}
-<p class="empty-state">Nothing here yet — first post coming soon.</p>
-{% endif %}
+</div>
