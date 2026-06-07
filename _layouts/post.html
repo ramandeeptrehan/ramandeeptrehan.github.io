@@ -2,11 +2,13 @@
 layout: default
 ---
 
-<article>
-  <h2>{{ page.title }}</h2>
-  <p class="meta">{{ page.date | date: "%B %Y" }}</p>
-  <div class="post-content">
-    {{ content }}
-  </div>
-  <p class="back"><a href="/">← Back</a></p>
-</article>
+<div class="post-wrap">
+  <article>
+    <h2>{{ page.title }}</h2>
+    <p class="meta">{{ page.date | date: "%B %d, %Y" }}</p>
+    <div class="post-content">
+      {{ content }}
+    </div>
+    <p class="back"><a href="/writings/">← All writings</a></p>
+  </article>
+</div>
