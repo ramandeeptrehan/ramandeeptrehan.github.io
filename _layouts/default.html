@@ -27,14 +27,10 @@
   </header>
 
   <main>
-    {% assign parts = page.url | split: "/" %}
-    {% if parts.size >= 4 %}
-      {% assign parent_slug = parts[1] %}
-      {% if parent_slug == "cs" %}
-        <p class="back" style="margin-bottom: 1.5rem;"><a href="/cs/">← Computer Science</a></p>
-      {% elsif parent_slug == "math" %}
-        <p class="back" style="margin-bottom: 1.5rem;"><a href="/math/">← Math</a></p>
-      {% endif %}
+    {% if page.url contains '/cs/' and page.url != '/cs/' %}
+      <p class="back" style="margin-bottom: 1.5rem;"><a href="/cs/">← Computer Science</a></p>
+    {% elsif page.url contains '/math/' and page.url != '/math/' %}
+      <p class="back" style="margin-bottom: 1.5rem;"><a href="/math/">← Math</a></p>
     {% endif %}
     {{ content }}
   </main>

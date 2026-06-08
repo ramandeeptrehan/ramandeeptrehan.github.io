@@ -214,7 +214,7 @@ nav a.active {
 /* Hero */
 .hero {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 2.5rem;
   margin-bottom: 3rem;
 }
@@ -233,6 +233,7 @@ nav a.active {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  margin-top: 0.3rem;
 }
 
 .hero-text h2 {
