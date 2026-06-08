@@ -67,6 +67,29 @@ nav a.active {
   color: #333;
 }
 
+/* Subnav */
+.subnav {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.subnav a {
+  font-size: 0.85rem;
+  color: #aaa;
+  text-decoration: none;
+}
+
+.subnav a:hover {
+  color: #333;
+}
+
+.subnav a.active {
+  color: #333;
+}
+
 /* Hero */
 .hero {
   display: flex;
