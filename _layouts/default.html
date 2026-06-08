@@ -26,7 +26,18 @@
     </nav>
   </header>
 
-  <main>{{ content }}</main>
+  <main>
+    {% assign parts = page.url | split: "/" %}
+    {% if parts.size >= 4 %}
+      {% assign parent_slug = parts[1] %}
+      {% if parent_slug == "cs" %}
+        <p class="back" style="margin-bottom: 1.5rem;"><a href="/cs/">← Computer Science</a></p>
+      {% elsif parent_slug == "math" %}
+        <p class="back" style="margin-bottom: 1.5rem;"><a href="/math/">← Math</a></p>
+      {% endif %}
+    {% endif %}
+    {{ content }}
+  </main>
 
   <footer>
     <div class="footer-inner">
