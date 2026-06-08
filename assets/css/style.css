@@ -85,6 +85,10 @@ nav a.active {
   max-width: 480px;
 }
 
+.home-beliefs {
+  margin-bottom: 0.8rem;
+}
+
 /* Home belief */
 .home-belief {
   margin-top: 2.5rem;
@@ -95,6 +99,34 @@ nav a.active {
   font-style: italic;
   font-family: Georgia, serif;
   line-height: 1.8;
+}
+
+/* CS Page Layout */
+.cs-page {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.cs-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-aside {
+  width: 200px;
+  flex-shrink: 0;
+  padding-left: 1.5rem;
+  border-left: 2px solid #dce5f5;
+}
+
+.cs-aside-text {
+  font-size: 0.82rem;
+  color: #aaa;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 0.8rem;
 }
 
 /* CS Intro List */
@@ -220,7 +252,7 @@ nav a.active {
   color: #666;
   margin-bottom: 0.8rem;
   max-width: 480px;
-  text-align: left;
+  text-align: justify;
 }
 
 .highlight {
