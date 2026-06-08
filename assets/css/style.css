@@ -49,12 +49,13 @@ header {
 /* Nav */
 nav {
   display: flex;
-  gap: 1.8rem;
+  gap: 1.2rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 nav a {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: #aaa;
   text-decoration: none;
 }
