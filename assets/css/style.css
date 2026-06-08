@@ -689,6 +689,51 @@ article h2 {
   line-height: 1;
 }
 
+/* Quotes */
+.quote-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.quote-item:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+
+.quote-text {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 0.3rem;
+}
+
+.quote-attr {
+  font-size: 0.8rem;
+  color: #aaa;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.quote-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.quote-toggle:hover .cs-arrow {
+  color: #5572a8;
+  transform: translateX(3px);
+}
+
+.quote-list {
+  margin-top: 0.5rem;
+}
+
 /* Contact */
 .contact-list {
   display: flex;

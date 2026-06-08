@@ -4,5 +4,40 @@ title: Math
 ---
 
 <div class="talks-page">
-  <p class="empty-state">Coming soon.</p>
+  <ul class="cs-topics" style="margin-bottom: 2.5rem;">
+    <li><a href="/math/pure-math/">Pure Math <span class="cs-arrow">→</span></a></li>
+    <li><a href="/math/ai-ml/">Math for AI and ML <span class="cs-arrow">→</span></a></li>
+  </ul>
+
+  <div class="quotes-section">
+    <button class="quote-toggle" onclick="toggleQuotes()">
+      <span class="music-label" style="margin: 0;">Quotes</span>
+      <span class="cs-arrow" id="quote-arrow">→</span>
+    </button>
+
+    <div class="quote-list" id="quote-list" style="display: none;">
+      <div class="quote-item">
+        <p class="quote-text">"Mathematics is the art of giving the same name to different things."</p>
+        <p class="quote-attr">— Henri Poincaré</p>
+      </div>
+      <div class="quote-item">
+        <p class="quote-text">"The mathematician does not study pure mathematics because it is useful; he studies it because he delights in it and he delights in it because it is beautiful."</p>
+        <p class="quote-attr">— Henri Poincaré</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+function toggleQuotes() {
+  var list = document.getElementById('quote-list');
+  var arrow = document.getElementById('quote-arrow');
+  if (list.style.display === 'none') {
+    list.style.display = 'block';
+    arrow.style.transform = 'rotate(90deg)';
+  } else {
+    list.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+  }
+}
+</script>
