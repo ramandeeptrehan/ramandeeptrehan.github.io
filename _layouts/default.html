@@ -28,9 +28,9 @@
 
   <main>
     {% if page.url contains '/cs/' and page.url != '/cs/' %}
-      <p class="back" style="margin-bottom: 1.5rem;"><a href="/cs/">← Computer Science</a></p>
+      <div class="talks-page"><p class="back" style="margin-top: 0; margin-bottom: 1.5rem;"><a href="/cs/">← Computer Science</a></p></div>
     {% elsif page.url contains '/math/' and page.url != '/math/' %}
-      <p class="back" style="margin-bottom: 1.5rem;"><a href="/math/">← Math</a></p>
+      <div class="talks-page"><p class="back" style="margin-top: 0; margin-bottom: 1.5rem;"><a href="/math/">← Math</a></p></div>
     {% endif %}
     {{ content }}
   </main>
