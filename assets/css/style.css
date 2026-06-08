@@ -68,6 +68,63 @@ nav a.active {
   color: #333;
 }
 
+/* CS Intro List */
+.cs-intro-list {
+  list-style: disc;
+  padding-left: 1.4rem;
+  margin: 0.6rem 0 0;
+}
+
+.cs-intro-list li {
+  font-size: 0.95rem;
+  color: #666;
+  padding: 0.15rem 0;
+  font-family: Georgia, serif;
+  line-height: 1.8;
+}
+
+/* CS Topics */
+.cs-topics {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cs-topics li {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cs-topics li:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+
+.cs-topics a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 0;
+  font-size: 0.95rem;
+  color: #444;
+  text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: color 0.15s;
+}
+
+.cs-topics a:hover {
+  color: #5572a8;
+}
+
+.cs-arrow {
+  color: #ccc;
+  font-size: 1rem;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.cs-topics a:hover .cs-arrow {
+  color: #5572a8;
+  transform: translateX(3px);
+}
+
 /* Subnav */
 .subnav {
   display: flex;
