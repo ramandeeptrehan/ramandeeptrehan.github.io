@@ -27,15 +27,6 @@
     </nav>
   </header>
 
-  {% if page.url contains '/cs' %}
-  <nav class="subnav">
-    <a href="/cs/algorithms/" {% if page.url contains '/algorithms' %}class="active"{% endif %}>Algorithms</a>
-    <a href="/cs/distributed-systems/" {% if page.url contains '/distributed-systems' %}class="active"{% endif %}>Distributed Systems</a>
-    <a href="/cs/ai/" {% if page.url contains '/ai' %}class="active"{% endif %}>Artificial Intelligence</a>
-    <a href="/cs/infrastructure/" {% if page.url contains '/infrastructure' %}class="active"{% endif %}>Infrastructure</a>
-  </nav>
-  {% endif %}
-
   <main>{{ content }}</main>
 
   <footer>
