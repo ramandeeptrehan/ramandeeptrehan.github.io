@@ -444,14 +444,6 @@ article h2 {
   text-align: center;
 }
 
-.archive-month {
-  font-size: 0.95rem;
-  font-weight: normal;
-  color: #888;
-  margin: 1.2rem 0 0.4rem;
-  text-align: center;
-}
-
 .archive-posts {
   list-style: none;
   padding: 0;
@@ -465,11 +457,12 @@ article h2 {
   padding: 0.4rem 0;
 }
 
-.archive-day {
+.archive-date {
   font-size: 0.82rem;
   color: #444;
-  min-width: 22px;
+  min-width: 88px;
   flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .archive-posts a {
