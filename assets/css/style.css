@@ -459,10 +459,9 @@ article h2 {
 
 .archive-date {
   font-size: 0.82rem;
-  color: #444;
-  min-width: 88px;
+  color: #888;
+  min-width: 48px;
   flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
 }
 
 .archive-posts a {
