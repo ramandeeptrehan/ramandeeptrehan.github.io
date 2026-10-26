@@ -14,7 +14,8 @@
     { n: 7, label: "8 per card · 57 cards" }
   ];
 
-  var n = 7, deck = [], pair = [], solved = false, startedAt = 0, rounds = 0, timers = [];
+  var n = 7, deck = [], pair = [], solved = false, startedAt = 0, timers = [];
+  var stats = { drawn: 0, found: 0, best: null };
 
   function mod(a) { return ((a % n) + n) % n; }
   function inverse(a) {
@@ -63,28 +64,70 @@
     return a.syms.filter(function (s) { return b.syms.indexOf(s) !== -1; });
   }
 
-  // One sentence describing where a card's symbols sit.
+  // The reading guide, written for the current deck size.
+  function primer() {
+    var m = Math.min(2, n - 1), big = n + 2, rule = rhs(m, 1);
+    return "<li><b>Every symbol has a square.</b> " + n * n + " symbols sit on the " + n + " × " + n +
+      " grid below, one per square. We name a square by its column x (counting from the left) and its row y (counting from the bottom). So " +
+      EMOJI[pointId(0, 0)] + " is at (0, 0). The other " + (n + 1) + " symbols sit in the row underneath, called “at infinity”.</li>" +
+      "<li><b>A card is a straight line.</b> Pick a rule, like y = " + rule + ". In each column, work out y and take the symbol in that square. One symbol per column gives " +
+      n + " symbols. A whole column, like x = 1, counts as a line too.</li>" +
+      "<li><b>Lines wrap around.</b> The grid has only " + n + " rows. If y comes out too big, subtract " + n +
+      " until it fits, so " + big + " becomes " + (big % n) + ". Like Pac-Man, the line leaves the top and comes back at the bottom. That's why some lines look broken.</li>" +
+      "<li><b>Each card gets one extra symbol for its direction.</b> Lines going the same direction never meet. So every line going that direction also gets the same symbol from the “at infinity” row. That makes " +
+      (n + 1) + " symbols per card.</li>" +
+      "<li><b>That's why any two cards share exactly one symbol.</b> Two lines going different directions cross in exactly one square. Two lines going the same direction never cross, but they share their direction symbol.</li>";
+  }
+
+  // A small worked table: x, the y it gives, and the symbol at that spot.
+  function calcTable(card) {
+    if (card.kind === "inf") return "";
+    var xs = [], ys = [], es = [], i;
+    for (i = 0; i < n; i++) {
+      var x = card.kind === "vert" ? card.c : i;
+      var y = card.kind === "vert" ? i : mod(card.m * i + card.b);
+      xs.push("<span>" + x + "</span>");
+      ys.push("<span>" + y + "</span>");
+      es.push("<span>" + EMOJI[pointId(x, y)] + "</span>");
+    }
+    return '<div class="dp-calc" style="grid-template-columns:2.2em repeat(' + n + ',1fr)">' +
+      "<b>x</b>" + xs.join("") + "<b>y</b>" + ys.join("") + "<b></b>" + es.join("") + "</div>";
+  }
+
+  function wrapExample(card) {
+    if (card.kind !== "line") return "";
+    for (var x = 0; x < n; x++) {
+      var raw = card.m * x + card.b;
+      if (raw >= n) {
+        return " At x = " + x + ", the rule gives " + (card.m ? (card.m === 1 ? "" : card.m + " × ") + x + " + " : "") +
+          card.b + " = " + raw + ", which wraps around to " + raw % n + " (subtract " + n + " until it fits).";
+      }
+    }
+    return "";
+  }
+
+  // One step describing where a card's symbols sit.
   function describe(card, side, color) {
-    var who = "The <b>" + side + " card</b>";
-    var line = '<span class="dp-ink ' + color + '">';
+    var who = "The <b>" + side + " card</b> is ";
+    var ink = '<span class="dp-ink ' + color + '">';
     if (card.kind === "line") {
-      var shape = card.m === 0 ? "a flat line, " : "a line with slope " + card.m + ", ";
-      return who + " is " + line + shape + equation(card) + "</span>. That's " + n +
-        " spots on the grid, plus " + EMOJI[slopeId(card.m)] + " in the “at infinity” row, the symbol every line with slope " +
-        card.m + " shares.";
+      return who + ink + "the line " + equation(card) + "</span>. For each column x, we work out y:" + wrapExample(card) +
+        calcTable(card) + "Plus " + EMOJI[slopeId(card.m)] + " from the “at infinity” row, the symbol every line with slope " +
+        card.m + " carries.";
     }
     if (card.kind === "vert") {
-      return who + " is " + line + "the vertical line " + equation(card) + "</span>. That's the " + n +
-        " spots in column " + card.c + ", plus " + EMOJI[verticalId()] + " at infinity, the symbol every vertical line shares.";
+      return who + ink + "the vertical line " + equation(card) + "</span>, so it's every spot in column " + card.c + ":" +
+        calcTable(card) + "Plus " + EMOJI[verticalId()] + " from the “at infinity” row, the symbol every vertical line carries.";
     }
-    return who + " is " + line + "the “at infinity” row itself</span>: one symbol for each slope, and nothing on the grid.";
+    return who + ink + "the “at infinity” row itself</span>: one symbol for each direction, and nothing on the grid.";
   }
 
   // The final step: where the two lines meet, and why only there.
   function meeting(a, b, s) {
     var e = "<b>" + EMOJI[s] + "</b>";
     if (a.kind === "inf" || b.kind === "inf") {
-      return "The other card's slope symbol sits in that row, so the only spot they share is " + e + ". That's your match.";
+      return "One card is the whole “at infinity” row, and the other card's direction symbol sits in that row. So the only symbol they share is " +
+        e + ". That's your match.";
     }
     if (a.kind === "vert" && b.kind === "vert") {
       return "Two vertical lines are parallel, so they never cross on the grid. What they do share is the vertical symbol at infinity, " +
@@ -94,17 +137,14 @@
       return "Both lines have slope " + a.m + ", so they're parallel and never cross on the grid. What they do share is the slope-" +
         a.m + " symbol at infinity, " + e + ". That's your match.";
     }
-    var x, y;
     if (a.kind === "vert" || b.kind === "vert") {
       var v = a.kind === "vert" ? a : b, l = a.kind === "vert" ? b : a;
-      x = v.c;
-      y = mod(l.m * x + l.b);
-    } else {
-      x = mod((b.b - a.b) * inverse(a.m - b.m));
-      y = mod(a.m * x + a.b);
+      return "The vertical line is all of column " + v.c + ". The other line passes through that column only once, at y = " +
+        mod(l.m * v.c + l.b) + ". That spot is " + e + ", and that's your match. Their direction symbols are different, so they share nothing else.";
     }
-    return "The two lines cross at exactly one spot, x = " + x + ", y = " + y + ", which is " + e +
-      ". That's your match. Two lines with different directions can only cross once, so there can't be a second match.";
+    var x = mod((b.b - a.b) * inverse(a.m - b.m)), y = mod(a.m * x + a.b);
+    return "Compare the two tables. They agree in exactly one column, x = " + x + ", where both give y = " + y + ". That spot is " + e +
+      ", and that's your match. Their direction symbols are different, so they share nothing else.";
   }
 
   function shuffle(arr) {
@@ -144,15 +184,14 @@
     "</div>" +
     '<div class="dp-why" hidden>' +
     '<p class="dp-why-label">Why is that the only match?</p>' +
-    '<p class="dp-intro"></p>' +
+    '<details class="dp-primer" open><summary>How to read the grid</summary><ol></ol></details>' +
+    '<p class="dp-sub">Now your two cards</p>' +
     '<ol class="dp-steps"><li class="a"></li><li class="b"></li><li class="hit"></li></ol>' +
     '<div class="dp-board"><div class="dp-grid"></div><p class="dp-inf-title">At infinity: one extra symbol per direction</p>' +
     '<div class="dp-inf"></div></div>' +
-    '<p class="dp-note">Lines wrap around the edges, like Pac-Man, because we count mod <span class="dp-n"></span>. ' +
-    "That's why some lines look broken.</p>" +
-    '<div class="dp-actions"><button type="button" class="dp-btn" data-act="replay">Replay</button></div>' +
+    '<div class="dp-actions dp-replay"><button type="button" class="dp-btn" data-act="replay">Replay</button></div>' +
     "</div>" +
-    '<p class="dp-stats"></p>';
+    '<div class="dp-stats"></div>';
 
   var cardEls = root.querySelectorAll(".dp-card");
   var eqEls = root.querySelectorAll(".dp-eq");
@@ -160,6 +199,17 @@
   var whyEl = root.querySelector(".dp-why");
   var statsEl = root.querySelector(".dp-stats");
   var stepEls = root.querySelectorAll(".dp-steps li");
+
+  function renderStats() {
+    function tile(value, label, cls) {
+      return '<div class="dp-stat' + (cls ? " " + cls : "") + '"><strong>' + value + "</strong><span>" + label + "</span></div>";
+    }
+    statsEl.innerHTML =
+      tile(stats.drawn, "pairs drawn") +
+      tile(stats.found, "found by you") +
+      tile(stats.best === null ? "–" : stats.best.toFixed(1) + "s", "best time") +
+      tile(0, "pairs with 2+ matches", "good");
+  }
 
   function renderCard(el, card) {
     var syms = shuffle(card.syms.slice()), pts = layout(syms.length);
@@ -191,10 +241,10 @@
     for (x = 0; x < n; x++) html += '<span class="dp-axis">' + x + "</span>";
     grid.innerHTML = html;
     var inf = "";
-    for (m = 0; m < n; m++) inf += cell(slopeId(m), '<small>slope ' + m + "</small>");
+    for (m = 0; m < n; m++) inf += cell(slopeId(m), "<small>slope " + m + "</small>");
     inf += cell(verticalId(), "<small>vertical</small>");
     root.querySelector(".dp-inf").innerHTML = inf;
-    root.querySelector(".dp-n").textContent = n;
+    root.querySelector(".dp-primer ol").innerHTML = primer();
   }
 
   function clearTimers() {
@@ -215,18 +265,15 @@
       });
     }
     timers.push(setTimeout(function () { mark(a, "a"); stepEls[0].classList.add("on"); }, 150));
-    timers.push(setTimeout(function () { mark(b, "b"); stepEls[1].classList.add("on"); }, 1300));
+    timers.push(setTimeout(function () { mark(b, "b"); stepEls[1].classList.add("on"); }, 1400));
     timers.push(setTimeout(function () {
       root.querySelector('.dp-board .dp-cell[data-id="' + s + '"]').classList.add("hit");
       stepEls[2].classList.add("on");
-    }, 2450));
+    }, 2650));
   }
 
   function explain() {
     var a = pair[0], b = pair[1], s = shared(a, b)[0];
-    root.querySelector(".dp-intro").textContent =
-      "Every symbol in the deck has its own spot: " + n * n + " on this grid, and " + (n + 1) +
-      " more in the row below it. Each card is the set of spots along one straight line. Watch:";
     stepEls[0].innerHTML = describe(a, "left", "a");
     stepEls[1].innerHTML = describe(b, "right", "b");
     stepEls[2].innerHTML = meeting(a, b, s);
@@ -236,12 +283,15 @@
     playSteps();
   }
 
-  function finish(s, message) {
+  function finish(s, message, seconds) {
     solved = true;
     root.querySelectorAll('.dp-sym[data-s="' + s + '"]').forEach(function (el) { el.classList.add("dp-hit"); });
     statusEl.textContent = message;
-    rounds++;
-    statsEl.textContent = "Pairs drawn: " + rounds + ". Every single one had exactly one match.";
+    if (seconds !== undefined) {
+      stats.found++;
+      if (stats.best === null || seconds < stats.best) stats.best = seconds;
+    }
+    renderStats();
     explain();
   }
 
@@ -251,6 +301,8 @@
     do { j = Math.floor(Math.random() * deck.length); } while (j === i);
     pair = [deck[i], deck[j]];
     solved = false;
+    stats.drawn++;
+    renderStats();
     renderCard(cardEls[0], pair[0]);
     renderCard(cardEls[1], pair[1]);
     eqEls[0].textContent = "";
@@ -285,7 +337,8 @@
     if (t.classList.contains("dp-sym") && !solved) {
       var s = Number(t.getAttribute("data-s"));
       if (shared(pair[0], pair[1])[0] === s) {
-        finish(s, "Found it in " + ((Date.now() - startedAt) / 1000).toFixed(1) + "s. " + EMOJI[s] + " is on both cards.");
+        var secs = (Date.now() - startedAt) / 1000;
+        finish(s, "Found it in " + secs.toFixed(1) + "s. " + EMOJI[s] + " is on both cards.", secs);
       } else {
         t.classList.remove("dp-miss");
         void t.offsetWidth;
