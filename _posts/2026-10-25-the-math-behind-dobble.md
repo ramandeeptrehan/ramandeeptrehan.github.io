@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Math Behind Dobble"
-date: 2026-10-26
+date: 2026-10-25
 ---
 
 In 1976, a French puzzle enthusiast named Jacques Cottereau made a set of 31 cards with 6 insect pictures on each. Any two of his cards had exactly one insect in common. He was inspired by Kirkman's schoolgirl problem, a 19th century puzzle about arranging girls into rows so that no two of them walk together twice [1].

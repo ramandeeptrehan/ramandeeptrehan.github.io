@@ -52,15 +52,15 @@ A few of these stories are worth telling, because they show a pattern.
 
 **Databases.** Apache Cassandra is written in Java. ScyllaDB is a rewrite of Cassandra in C++, on a framework called Seastar that gives each CPU core its own shard of data and avoids locks between cores. Redpanda took the same approach to Kafka: it speaks the Kafka protocol, but it's written in C++ with no JVM underneath. In both cases the rewrite kept the interface and changed only the engine.
 
-**Storage.** RocksDB started at Facebook in 2012 as a fork of Google's LevelDB [2]. It's a small embedded key-value store, and it sits underneath a long list of other systems: MyRocks inside MySQL, Kafka Streams state stores, and many databases that needed a storage engine and didn't want to write their own. ClickHouse and DuckDB, two of the most popular analytical databases, are also written in C++.
+**Storage.** Ceph, the distributed storage system behind many private clouds, is written in C++. So is FoundationDB, the transactional key-value store that Apple open sourced in 2018 and runs underneath CloudKit. So is LevelDB, Google's small embedded key-value store that many other databases borrowed from. ClickHouse and DuckDB, two of the most popular analytical databases, are also written in C++.
 
-**Query engines.** This is my favourite example. Databricks runs Apache Spark, which lives on the JVM. When they wanted faster queries, they wrote a new execution engine called Photon in C++ and plugged it underneath Spark [3]. Meta did something similar with Velox, a C++ execution library that now powers a native version of Presto and, through the Apache Gluten project, Spark as well [4].
+**Query engines.** This is my favourite example. Databricks runs Apache Spark, which lives on the JVM. When they wanted faster queries, they wrote a new execution engine called Photon in C++ and plugged it underneath Spark [2]. The open source Apache Gluten project does something similar for regular Spark, handing the actual execution to native C++ engines.
 
 The pattern is the same each time. The JVM stays where it's good: planning, scheduling, coordination. The hot loop that touches every row moves to C++.
 
 **Streaming and real-time.** WebRTC, the library behind real-time audio and video in Chrome and many calling apps, is C++. Envoy, the proxy that sits in front of a large share of modern microservices, is C++.
 
-**Places where failure is expensive.** The F-35's flight software was written in C++, following a strict coding standard from Lockheed Martin [5]. NASA JPL's F´ (F Prime) framework is C++, and it flew on the Ingenuity helicopter on Mars [6]. Trading systems use C++ because a microsecond is money. Most large game engines, including Unreal, are C++ because a frame has 16 milliseconds and not one more.
+**Places where failure is expensive.** The F-35's flight software was written in C++, following a strict coding standard from Lockheed Martin [3]. NASA JPL's F´ (F Prime) framework is C++, and it flew on the Ingenuity helicopter on Mars [4]. Trading systems use C++ because a microsecond is money. Most large game engines, including Unreal, are C++ because a frame has 16 milliseconds and not one more.
 
 And the tools themselves: Chrome and its JavaScript engine V8 are C++, which means Node.js is too, underneath. LLVM, the compiler infrastructure behind Clang, Swift and Rust, is C++.
 
@@ -79,7 +79,7 @@ This split is the same one we saw with Spark and Photon. Python is the control p
 
 Why does this matter more now? Because of where the cost moved.
 
-Training a large model is a one-time cost, even if a large one. Serving it is a cost on every single token, for every user, forever. At that scale, a kernel that is 20% faster isn't a nice-to-have, it's 20% fewer GPUs. That's why inference engines are written close to the metal. NVIDIA's TensorRT-LLM has a C++ runtime. llama.cpp, written by Georgi Gerganov in 2023, showed that you can run large language models on a laptop CPU if you're careful enough about memory and arithmetic, and it did that in C and C++. FlashAttention, one of the most important speedups in recent years, is not a new model architecture at all. It's a rearrangement of the same math so it reads less from GPU memory [7]. That's the same lesson as the cache example above, applied to a GPU.
+Training a large model is a one-time cost, even if a large one. Serving it is a cost on every single token, for every user, forever. At that scale, a kernel that is 20% faster isn't a nice-to-have, it's 20% fewer GPUs. That's why inference engines are written close to the metal. NVIDIA's TensorRT-LLM has a C++ runtime. llama.cpp, written by Georgi Gerganov in 2023, showed that you can run large language models on a laptop CPU if you're careful enough about memory and arithmetic, and it did that in C and C++. FlashAttention, one of the most important speedups in recent years, is not a new model architecture at all. It's a rearrangement of the same math so it reads less from GPU memory [5]. That's the same lesson as the cache example above, applied to a GPU.
 
 There is a fair counterpoint. Tools like OpenAI's Triton let you write GPU kernels in a Python-like language, and that's a real improvement. But Triton is a compiler, and compilers like it are built on LLVM and MLIR, which are C++. The layer just moved down.
 
@@ -89,7 +89,7 @@ And then there's AI writing code. Models can now write a lot of C++ for us. I do
 
 C++ gives you control, and control includes the ability to get things badly wrong.
 
-The language lets you read past the end of an array, use memory after freeing it, and write code with **undefined behavior** that works on your machine and fails on another. The Chromium team found that around 70% of their high-severity security bugs were memory safety problems [8]. Microsoft has reported a similar number.
+The language lets you read past the end of an array, use memory after freeing it, and write code with **undefined behavior** that works on your machine and fails on another. The Chromium team found that around 70% of their high-severity security bugs were memory safety problems [6]. Microsoft has reported a similar number.
 
 This is why Rust exists, and why parts of Android, Windows and the Linux kernel are adopting it. It's a real shift, and I think it's a good one. The C++ committee is responding with safer defaults and hardened standard libraries, but none of that will remove the billions of lines of C++ already running everything above.
 
@@ -105,7 +105,7 @@ Here's what I expect to be different, written down so I can check back later:
 - **Templates.** Java generics are erased at runtime. C++ templates generate a separate version of the code for each type, which is why they're fast and also why the error messages are long.
 - **The build.** Headers, translation units, linkers, CMake. Java and Python hide this. C++ does not.
 
-My plan is simple. Read *A Tour of C++* by Stroustrup for the shape of the modern language, then *Effective Modern C++* by Scott Meyers for the details. After that, read real code: RocksDB and DuckDB are both readable and well documented. And build something small and real, probably a log-structured key-value store, since that touches memory layout, files, and concurrency all at once.
+My plan is simple. Read *A Tour of C++* by Stroustrup for the shape of the modern language, then *Effective Modern C++* by Scott Meyers for the details. After that, read real code: DuckDB and LevelDB are both readable and well documented. And build something small and real, probably a log-structured key-value store, since that touches memory layout, files, and concurrency all at once.
 
 ## Conclusion
 
@@ -119,16 +119,12 @@ I'll write more as I go.
 
 [1] Bjarne Stroustrup, *The Design and Evolution of C++*, Addison-Wesley, 1994.
 
-[2] [RocksDB: A Persistent Key-Value Store for Flash and RAM Storage](https://github.com/facebook/rocksdb)
+[2] A. Behm et al., "Photon: A Fast Query Engine for Lakehouse Systems", SIGMOD 2022.
 
-[3] A. Behm et al., "Photon: A Fast Query Engine for Lakehouse Systems", SIGMOD 2022.
+[3] [Joint Strike Fighter Air Vehicle C++ Coding Standards](https://www.stroustrup.com/JSF-AV-rules.pdf)
 
-[4] P. Pedreira et al., "Velox: Meta's Unified Execution Engine", VLDB 2022.
+[4] [F´ (F Prime): a flight software framework from NASA JPL](https://github.com/nasa/fprime)
 
-[5] [Joint Strike Fighter Air Vehicle C++ Coding Standards](https://www.stroustrup.com/JSF-AV-rules.pdf)
+[5] T. Dao et al., "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness", NeurIPS 2022.
 
-[6] [F´ (F Prime): a flight software framework from NASA JPL](https://github.com/nasa/fprime)
-
-[7] T. Dao et al., "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness", NeurIPS 2022.
-
-[8] [The Chromium Projects: Memory safety](https://www.chromium.org/Home/chromium-security/memory-safety/)
+[6] [The Chromium Projects: Memory safety](https://www.chromium.org/Home/chromium-security/memory-safety/)
