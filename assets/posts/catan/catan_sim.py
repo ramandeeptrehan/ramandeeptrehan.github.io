@@ -1,12 +1,14 @@
 """Monte Carlo experiments for Catan.
 
-Run:  python3 catan_sim.py
+Run:  python3 catan_sim.py            (about 30 seconds)
+      python3 catan_sim.py --games 500 (a quick run)
 
 It builds the real 19-hex board, generates random legal boards, and plays a
 simplified solo race to 10 victory points to compare opening placements and
 strategies. Three opponents claim spots during setup, so the best corners are
 contested, but they don't build, trade or move the robber afterwards.
 """
+import argparse
 import math
 import random
 from collections import Counter
@@ -332,13 +334,14 @@ def spot_experiment(rng, boards=10_000):
 
 
 def strategy_experiment(rng, games=4_000):
+    print(f"Strategy         median rounds   finished within 30 rounds   ({games:,} games each)")
     results = {}
     for name in STRATEGIES:
         runs = [rounds_to_win(random_board(rng), name, rng) for _ in range(games)]
         rounds = [r for r, _ in runs]
         results[name] = runs
         within = sum(r <= 30 for r in rounds) / len(rounds)
-        print(f"{name:<15} median {median(rounds):4.0f} rounds   finished within 30 rounds: {within:4.0%}")
+        print(f"{name:<15}  {median(rounds):>13.0f}   {within:>25.0%}", flush=True)
     return results
 
 
@@ -347,20 +350,26 @@ def opening_experiment(results):
     buckets = {}
     for rounds, pips in runs:
         buckets.setdefault(min(pips // 4 * 4, 28), []).append(rounds)
-    print("Starting pips   games   median rounds to 10 VP")
+    print("Starting pips   games   median rounds to 10 VP   (200 = most games never got there)")
     for b in sorted(buckets):
         if len(buckets[b]) >= 50:
-            print(f"   {b:>2}-{b + 3:<2}      {len(buckets[b]):>5}   {median(buckets[b]):5.0f}")
+            print(f"   {b:>2}-{b + 3:<2}      {len(buckets[b]):>5}   {median(buckets[b]):>8.0f}")
 
 
 if __name__ == "__main__":
-    rng = random.Random(15)
+    parser = argparse.ArgumentParser(description="Monte Carlo experiments for Catan.")
+    parser.add_argument("--games", type=int, default=4_000, help="games per strategy (default 4000, about 30 seconds)")
+    parser.add_argument("--seed", type=int, default=15, help="random seed (default 15 reproduces the blog post)")
+    args = parser.parse_args()
+
+    rng = random.Random(args.seed)
     print(f"Board: {len(HEXES)} hexes, {len(NEIGHBORS)} corners, "
           f"{sum(len(n) for n in NEIGHBORS.values()) // 2} edges\n")
+    print("1. Rolling two dice a million times...", flush=True)
     dice_experiment(rng)
-    print()
+    print("\n2. Scoring every corner on 10,000 random boards...", flush=True)
     spot_experiment(rng)
-    print()
-    results = strategy_experiment(rng)
-    print()
+    print(f"\n3. Playing {args.games:,} games for each strategy (try --games 500 for a quick run)...", flush=True)
+    results = strategy_experiment(rng, args.games)
+    print("\n4. How much the opening matters...", flush=True)
     opening_experiment(results)

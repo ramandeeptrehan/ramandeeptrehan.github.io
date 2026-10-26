@@ -8,9 +8,22 @@
   var dice = document.getElementById("catan-dice");
   if (dice) {
     var counts = {}, total = 0, s;
+    var rows = "";
+    for (s = 2; s <= 12; s++) {
+      rows += '<div class="cw-row' + (s === 7 ? " seven" : "") + '" data-s="' + s + '">' +
+        '<span class="cw-c-sum">' + s + "</span>" +
+        '<span class="cw-c-exact"><span class="cw-ways">' + PIPS[s] + "/36 · </span>" + ((PIPS[s] / 36) * 100).toFixed(1) + "%</span>" +
+        '<span class="cw-c-count">0</span>' +
+        '<span class="cw-c-share">–</span>' +
+        '<span class="cw-c-bar"><span class="cw-bar-fill"></span><span class="cw-bar-exact" style="left:' +
+        ((PIPS[s] / 36) / 0.2) * 100 + '%"></span></span>' +
+        "</div>";
+    }
     dice.innerHTML =
       '<div class="cw-head"><span class="cw-label">Roll the dice</span><span class="cw-last"></span></div>' +
-      '<div class="cw-bars"></div>' +
+      '<div class="cw-table" role="table" aria-label="Dice results">' +
+      '<div class="cw-row cw-th" role="row"><span>Sum</span><span>Exact odds</span><span>Rolled</span><span>Your share</span><span>Share vs exact</span></div>' +
+      rows + "</div>" +
       '<p class="cw-note"></p>' +
       '<div class="cw-actions">' +
       [1, 10, 100, 1000].map(function (n) {
@@ -18,30 +31,21 @@
           (n === 1 ? "once" : n.toLocaleString() + " times") + "</button>";
       }).join("") +
       '<button type="button" class="cw-btn" data-roll="0">Reset</button></div>';
-    var bars = dice.querySelector(".cw-bars");
-    var html = "";
-    for (s = 2; s <= 12; s++) {
-      html += '<div class="cw-col' + (s === 7 ? " seven" : "") + '"><span class="cw-count" data-s="' + s + '"></span>' +
-        '<div class="cw-track"><div class="cw-expect" style="bottom:' + (PIPS[s] / 6) * 100 + '%"></div>' +
-        '<div class="cw-fill" data-s="' + s + '"></div></div><span class="cw-sum">' + s + "</span></div>";
-    }
-    bars.innerHTML = html;
 
     function renderDice(last) {
-      var max = 0, k;
-      for (k = 2; k <= 12; k++) max = Math.max(max, (counts[k] || 0) / Math.max(total, 1));
-      var top = Math.max(max, 6 / 36) * 1.08;
-      for (k = 2; k <= 12; k++) {
-        var share = (counts[k] || 0) / Math.max(total, 1);
-        dice.querySelector('.cw-fill[data-s="' + k + '"]').style.height = (share / top) * 100 + "%";
-        dice.querySelector('.cw-count[data-s="' + k + '"]').textContent = total ? Math.round(share * 100) + "%" : "";
-        dice.querySelector('.cw-col:nth-child(' + (k - 1) + ") .cw-expect").style.bottom = ((PIPS[k] / 36) / top) * 100 + "%";
+      for (var k = 2; k <= 12; k++) {
+        var row = dice.querySelector('.cw-row[data-s="' + k + '"]');
+        var share = total ? (counts[k] || 0) / total : 0;
+        row.querySelector(".cw-c-count").textContent = (counts[k] || 0).toLocaleString();
+        row.querySelector(".cw-c-share").textContent = total ? (share * 100).toFixed(1) + "%" : "–";
+        row.querySelector(".cw-bar-fill").style.width = Math.min(share / 0.2, 1) * 100 + "%";
+        row.classList.toggle("just", !!last && last[2] === k);
       }
-      dice.querySelector(".cw-last").textContent = last ? last[0] + " " + last[1] + "  = " + (last[2]) : "";
-      var sevens = total ? Math.round(((counts[7] || 0) / total) * 1000) / 10 : 0;
+      dice.querySelector(".cw-last").textContent = last ? last[0] + " " + last[1] + "  = " + last[2] : "";
+      var sevens = total ? (((counts[7] || 0) / total) * 100).toFixed(1) : 0;
       dice.querySelector(".cw-note").textContent = total
-        ? total.toLocaleString() + " rolls so far. Sevens: " + sevens + "% (the math says 16.7%). The dashes mark the exact odds."
-        : "Each bar shows how often a sum has come up. The dashes mark the exact odds.";
+        ? total.toLocaleString() + " rolls so far. Sevens: " + sevens + "% of rolls (exact: 16.7%). The black tick on each bar marks the exact odds."
+        : "Roll a few times, then a thousand. Watch your shares close in on the exact odds.";
     }
 
     dice.addEventListener("click", function (ev) {
@@ -55,7 +59,8 @@
         total++;
         last = [FACES[a], FACES[c], a + c];
       }
-      renderDice(last);
+      renderDice(n === 1 ? last : null);
+      if (n > 1) dice.querySelector(".cw-last").textContent = "";
     });
     renderDice(null);
   }

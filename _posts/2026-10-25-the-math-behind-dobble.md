@@ -36,7 +36,7 @@ The idea is older than the game. In 1976, a French puzzle enthusiast named Jacqu
 Before we get into the math, try the game yourself. Draw two cards and tap the symbol they share. Once you find it, the panel below the cards shows *why* that symbol is the match, by drawing both cards as lines on a grid. That picture won't make sense yet, but by the end of the post it will.
 
 <div class="dobble-play" id="dobble-play"></div>
-<script src="/assets/posts/dobble/play.js" defer></script>
+<script src="/assets/posts/dobble/play.js?v={{ site.time | date: '%s' }}" defer></script>
 
 ## The Cheat
 

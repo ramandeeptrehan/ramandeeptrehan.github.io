@@ -120,7 +120,18 @@ That gives the triangle in Figure 3. A 6 or an 8 comes up 5 times in 36 rolls, w
   <figcaption>Figure 3: Ways to roll each sum with two dice. The 7, which triggers the robber, is the most likely roll.</figcaption>
 </figure>
 
-Try it yourself below. A handful of rolls look random, but roll a thousand times and the triangle appears.
+You can check this with a few lines of Python. Paste this into any Python 3 prompt:
+
+```python
+import random
+from collections import Counter
+
+rolls = Counter(random.randint(1, 6) + random.randint(1, 6) for _ in range(100_000))
+for s in range(2, 13):
+    print(f"{s:>2}  rolled {rolls[s] / 100_000:6.2%}   exact {(6 - abs(s - 7)) / 36:6.2%}")
+```
+
+Or try it right here. A handful of rolls look random, but roll a thousand times and every row settles onto its exact odds.
 
 <div class="catan-widget" id="catan-dice"></div>
 
@@ -189,9 +200,14 @@ Put the math together and most good Catan strategy falls out on its own.
 
 ## Simulating Catan
 
-Rules of thumb are nice, but it's more fun to test them. I wrote a small simulator in Python that builds the real board (19 hexes, 54 corners and 72 edges), deals random legal boards, and plays thousands of games. You can [download the full script](/assets/posts/catan/catan_sim.py) and run it yourself with `python3 catan_sim.py`.
+Rules of thumb are nice, but it's more fun to test them. I wrote a small simulator in Python that builds the real board (19 hexes, 54 corners and 72 edges), deals random legal boards, and plays thousands of games. You can [download the full script](/assets/posts/catan/catan_sim.py) and run it yourself. It needs nothing beyond Python 3:
 
-The core ideas fit in a few lines. The dice probabilities come straight from the formula above, and a corner's value is the sum of the pips around it:
+```text
+python3 catan_sim.py              # about 30 seconds, reproduces every number in this post
+python3 catan_sim.py --games 500  # a quick run in a few seconds
+```
+
+Here are the key pieces, taken straight from the script (they aren't meant to run on their own; the full file is). The dice probabilities come from the formula above, and a corner's value is the sum of the pips around it:
 
 ```python
 PIPS = {n: 6 - abs(n - 7) for n in range(2, 13)}  # ways to roll n with two dice
@@ -277,4 +293,4 @@ What I like most about Catan is that the probability is printed right there on t
 
 [4] [Wikipedia: Catan: Seafarers](https://en.wikipedia.org/wiki/Catan:_Seafarers)
 
-<script src="/assets/posts/catan/catan.js" defer></script>
+<script src="/assets/posts/catan/catan.js?v={{ site.time | date: '%s' }}" defer></script>
