@@ -8,7 +8,7 @@ In 1976, a French puzzle enthusiast named Jacques Cottereau made a set of 31 car
 
 Decades later, Denis Blanchot picked up the idea, swapped the insects for everyday symbols and turned it into a game. It came out as *Dobble* in 2009 (it is sold as *Spot It!* in the US) [1].
 
-I studied Computer Science and Mathematics at IIIT Delhi, so when I played Dobble with friends recently, I couldn't stop wondering how the deck is built. It is not obvious that such a deck should exist at all. In this post we'll work out the math from scratch: what has to be true about the deck, how many symbols it needs, and how to actually build one.
+I was playing Dobble with friends recently and couldn't stop wondering how the deck is built. It is not obvious that such a deck should exist at all. In this post we'll work out the math from scratch: what has to be true about the deck, how many symbols it needs, and how to actually build one.
 
 ## The Game
 
