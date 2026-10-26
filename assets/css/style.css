@@ -953,6 +953,264 @@ article h2 {
   animation: dp-pop 0.5s ease-out;
 }
 
+/* Catan widgets */
+.catan-widget {
+  margin: 2rem 0 2.5rem;
+  padding: 1rem 1rem 0.9rem;
+  background: #fbfcff;
+  border: 1px solid #e8eef8;
+  border-radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.catan-widget p {
+  margin: 0;
+}
+
+.cw-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.6rem;
+}
+
+.cw-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5572a8;
+}
+
+.cw-last {
+  font-size: 1.15rem;
+  color: #333;
+  white-space: pre;
+}
+
+.cw-bars {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 4px;
+  height: 190px;
+  margin: 0.8rem 0 0.5rem;
+}
+
+.cw-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.cw-count {
+  height: 1.1rem;
+  font-size: 0.62rem;
+  color: #777;
+  text-align: center;
+}
+
+.cw-track {
+  position: relative;
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.cw-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  background: #4169b8;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.35s ease-out;
+}
+
+.cw-col.seven .cw-fill {
+  background: #c76a14;
+}
+
+.cw-expect {
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  border-top: 2px dashed #333;
+  z-index: 1;
+  transition: bottom 0.35s ease-out;
+}
+
+.cw-sum {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #333;
+  text-align: center;
+}
+
+.catan-widget .cw-note,
+.catan-widget .cb-hint {
+  font-size: 0.82rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+
+.cw-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.cw-btn {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #dce5f5;
+  background: #fff;
+  color: #5572a8;
+  cursor: pointer;
+}
+
+.cw-btn.cw-primary {
+  background: #5572a8;
+  border-color: #5572a8;
+  color: #fff;
+}
+
+.cb-svg {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  margin: 0.4rem auto 0.6rem;
+}
+
+.cb-hex polygon {
+  stroke: #fff;
+  stroke-width: 3;
+  transition: filter 0.3s;
+}
+
+.cb-hex.lit polygon {
+  stroke: #333;
+  stroke-width: 3;
+}
+
+.cb-hex.produce polygon {
+  animation: cb-glow 1.4s ease-out;
+}
+
+@keyframes cb-glow {
+  0%, 60% { filter: brightness(1.35) drop-shadow(0 0 6px #fff7c2); }
+  100% { filter: none; }
+}
+
+.cb-icon {
+  font-size: 15px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+.cb-token {
+  fill: #fbf6e9;
+  stroke: #d8cfb8;
+}
+
+.cb-num {
+  font-size: 12px;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: #333;
+}
+
+.cb-num.red,
+.cb-pip.red {
+  fill: #b3261e;
+}
+
+.cb-pip {
+  fill: #333;
+}
+
+.cb-robber {
+  font-size: 9px;
+  text-anchor: middle;
+  fill: #8a7a52;
+}
+
+.cb-corner {
+  cursor: pointer;
+  outline: none;
+}
+
+.cb-hit {
+  fill: transparent;
+}
+
+.cb-dot {
+  fill: #fff;
+  stroke: #555;
+  stroke-width: 1.2;
+  opacity: 0.55;
+  transition: opacity 0.15s, r 0.15s;
+}
+
+.cb-corner:hover .cb-dot,
+.cb-corner:focus .cb-dot {
+  opacity: 1;
+}
+
+.cb-corner.on .cb-dot {
+  opacity: 1;
+  fill: #c0392b;
+  stroke: #fff;
+  stroke-width: 2;
+  r: 7;
+}
+
+.cb-corner.best .cb-dot {
+  opacity: 1;
+  fill: #333;
+  stroke: #fff;
+  stroke-width: 1.5;
+  r: 8;
+}
+
+.cb-rank {
+  font-size: 9px;
+  font-weight: 700;
+  fill: #fff;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.cb-info {
+  min-height: 3rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.cb-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0;
+}
+
+.cb-info li {
+  padding: 0.1rem 0;
+}
+
+.catan-widget .cb-title,
+.catan-widget .cb-sum,
+.catan-widget .cb-roll {
+  margin: 0.2rem 0;
+}
+
 .post-content figure {
   margin: 2rem 0 2.2rem;
 }
