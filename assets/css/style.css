@@ -236,6 +236,12 @@ nav a.active {
   margin-top: 0.3rem;
 }
 
+.calvin {
+  width: 250px;
+  height: auto;
+  margin-top: 1.5rem;
+}
+
 .hero-text h2 {
   font-size: 1.6rem;
   font-weight: normal;
@@ -886,6 +892,10 @@ footer a:hover {
   .avatar {
     width: 140px;
     height: 140px;
+  }
+
+  .calvin {
+    display: none;
   }
 
   .hero-text h2 {
