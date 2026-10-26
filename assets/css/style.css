@@ -101,6 +101,69 @@ nav a.active {
   line-height: 1.8;
 }
 
+/* Home cards */
+.home-card {
+  background: #fbfcff;
+  border: 1px solid #e8eef8;
+  border-radius: 10px;
+  padding: 1rem 1.2rem 0.4rem;
+  margin: 0 0 1rem;
+  max-width: 520px;
+}
+
+.home-card .bio {
+  max-width: none;
+  margin-bottom: 0.7rem;
+}
+
+.home-card .bio-beliefs {
+  margin-bottom: 0.6rem;
+}
+
+.home-card .bio-beliefs li {
+  max-width: none;
+}
+
+.home-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5572a8;
+  margin-bottom: 0.6rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 1.1rem;
+  border-left: 2px solid #dce5f5;
+  margin-left: 0.3rem;
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.1rem - 6px);
+  top: 0.55rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #b8c8e6;
+}
+
+.timeline-item.current::before {
+  background: #5572a8;
+  border-color: #5572a8;
+}
+
 /* CS Page Layout */
 .cs-page {
   display: flex;
@@ -273,7 +336,7 @@ nav a.active {
 }
 
 .interests {
-  margin-top: 0;
+  margin-top: 1.4rem;
   margin-bottom: 1rem;
 }
 
@@ -896,6 +959,20 @@ footer a:hover {
 
   .calvin {
     display: none;
+  }
+
+  .hero-text {
+    width: 100%;
+  }
+
+  .home-card {
+    text-align: left;
+    max-width: 100%;
+    padding: 0.9rem 1rem 0.3rem;
+  }
+
+  .home-card .bio {
+    text-align: left;
   }
 
   .hero-text h2 {
