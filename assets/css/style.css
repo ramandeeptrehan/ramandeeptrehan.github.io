@@ -485,6 +485,40 @@ article h2 {
   color: #5572a8;
 }
 
+.post-content .tldr {
+  background: #f5f8ff;
+  border: 1px solid #dce5f5;
+  border-left: 3px solid #5572a8;
+  border-radius: 8px;
+  padding: 1rem 1.2rem 0.2rem;
+  margin: 0 0 2.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.post-content .tldr p {
+  margin-bottom: 0.5rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5572a8;
+}
+
+.post-content .tldr ul {
+  margin-bottom: 0.8rem;
+}
+
+.post-content .tldr li {
+  margin-bottom: 0.35rem;
+  color: #444;
+}
+
+.post-content h3 {
+  font-size: 1rem;
+}
+
 .post-content figure {
   margin: 2rem 0 2.2rem;
 }

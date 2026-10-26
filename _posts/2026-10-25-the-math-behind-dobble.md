@@ -4,116 +4,172 @@ title: "The Math Behind Dobble"
 date: 2026-10-25
 ---
 
-In 1976, a French puzzle enthusiast named Jacques Cottereau made a set of 31 cards with 6 insect pictures on each. Any two of his cards had exactly one insect in common. He was inspired by Kirkman's schoolgirl problem, a 19th century puzzle about arranging girls into rows so that no two of them walk together twice [1].
+<div class="tldr" markdown="1">
 
-Decades later, Denis Blanchot picked up the idea, swapped the insects for everyday symbols and turned it into a game. It came out as *Dobble* in 2009 (it is sold as *Spot It!* in the US) [1].
+**TL;DR**
 
-I was playing Dobble with friends recently and couldn't stop wondering how the deck is built. It is not obvious that such a deck should exist at all. In this post we'll work out the math from scratch: what has to be true about the deck, how many symbols it needs, and how to actually build one.
+- Dobble's one rule: any two cards share exactly one symbol.
+- If you think of symbols as points and cards as lines, that rule becomes "any two lines meet in exactly one point". Mathematicians call this a projective plane.
+- With 8 symbols per card, simple counting forces the deck to have exactly 57 symbols and 57 cards. The box ships 55.
+- You can build such a deck from a grid and some modular arithmetic, whenever the number of symbols per card minus one is a prime.
+- Some deck sizes are impossible. One size, 13 symbols per card, is still an open problem.
 
-## The Game
+</div>
 
-A Dobble deck has 55 round cards. Each card has 8 symbols on it, and the key property is:
+I was playing Dobble with friends recently and couldn't stop wondering how the deck is built. Every pair of cards matches on exactly one symbol, and there are 55 cards. That doesn't happen by accident.
+
+In this post we'll start from nothing and build our way up to the full deck, one small step at a time. You won't need any math beyond counting and a bit of school algebra.
+
+## The Rule
+
+A Dobble deck has 55 round cards. Each card has 8 symbols on it. The whole game depends on one rule:
 
 **Any two cards share exactly one symbol.**
 
-Not zero, not two. Exactly one. The game is a race to spot that one shared symbol between your card and the one in the middle.
+Not zero, not two. Exactly one. You flip a card, compare it with yours, and race to spot the match.
 
 <figure>
   <img src="/assets/posts/dobble/two-cards.svg" alt="Two Dobble cards with eight symbols each. The only symbol on both is a star.">
   <figcaption>Figure 1: Two cards. The star is the only symbol they have in common.</figcaption>
 </figure>
 
-If you try to design such a deck by hand, you will get stuck quickly. Five or six cards is easy. Fifty-five is not. Every new card has to hit every existing card exactly once, and the constraints pile up fast.
+The idea is older than the game. In 1976, a French puzzle enthusiast named Jacques Cottereau made a set of 31 cards with 6 insect pictures each, where any two cards shared exactly one insect. Decades later, Denis Blanchot turned it into Dobble, released in 2009 and sold as *Spot It!* in the US [1].
 
-## Cards as Lines
+Our goal is to understand how to design a deck that follows this rule, and why the numbers come out the way they do.
 
-The trick is to stop thinking about cards and start thinking about geometry.
+## The Cheat
 
-Call each symbol a **point** and each card a **line**. A card "contains" a symbol in the same way a line passes through a point. Then the rule of the game becomes:
+Here's an easy way to satisfy the rule. Put a star on every card, and fill the rest of each card with symbols that appear nowhere else.
 
-**Any two lines meet in exactly one point.**
+Any two cards now share exactly one symbol: the star. You can make as many cards as you like.
 
-This should sound familiar. In ordinary geometry, two lines meet in exactly one point, except when they are parallel. The game simply asks for a geometry with no parallel lines.
+It follows the rule, but the game is ruined. The answer is always the star.
 
-It also helps to ask for the mirror image of that rule:
+So the rule alone isn't enough. We need to say what a *fair* deck looks like. A natural way is to ask that no pair of symbols is special either:
 
-**Any two points lie on exactly one line.**
+**Any two symbols appear together on exactly one card.**
 
-In game terms: any two symbols appear together on exactly one card. Dobble doesn't need this to be playable, but a deck that satisfies both rules is as balanced as it can possibly be, and it is much easier to reason about. A structure where both rules hold (plus a small non-degeneracy condition, so we don't count a single line as a geometry) is called a **projective plane**.
+Now every symbol has to pair up with every other symbol somewhere in the deck, and no single symbol can dominate. From here on, a "deck" means one that follows both rules.
 
-## A Small Deck
+## Start Tiny: 2 Symbols per Card
 
-The smallest projective plane has 7 points and 7 lines, with 3 points on every line. It is called the **Fano plane**, and it is usually drawn like this:
+Let's build the smallest fair deck we can, with just 2 symbols per card.
+
+Start with one card: 🍎 ⚓.
+
+The apple and anchor are now paired, so no other card can contain both. Add a third symbol, 🔥. It has to pair with the apple once and with the anchor once. That gives two more cards: 🍎 🔥 and ⚓ 🔥.
+
+<figure>
+  <img src="/assets/posts/dobble/triangle.svg" alt="A triangle with three symbols at the corners. Each side of the triangle is a card with two symbols.">
+  <figcaption>Figure 2: The smallest fair deck. Each side of the triangle is a card.</figcaption>
+</figure>
+
+Check both rules. Any two cards share exactly one symbol. Any two symbols sit together on exactly one card. That's a complete deck: **3 symbols, 3 cards.**
+
+Notice the picture. Symbols are corners and cards are sides. Two sides of a triangle always meet at exactly one corner. Keep that in mind, it's going to come back.
+
+## One Step Up: 3 Symbols per Card
+
+Now give each card 3 symbols. Trying this by hand takes a few minutes of crossing things out, but you'll end up with exactly 7 symbols and 7 cards. Here's one way to draw the result:
 
 <figure>
   <img src="/assets/posts/dobble/fano.svg" alt="The Fano plane: a triangle with its three medians and an inscribed circle, giving seven points and seven lines. Each line is listed as a card of three symbols.">
-  <figcaption>Figure 2: The Fano plane as a 7-card deck. Each side of the triangle, each middle line and the circle is one card.</figcaption>
+  <figcaption>Figure 3: A fair deck with 3 symbols per card. Each straight line, and the circle, is one card.</figcaption>
 </figure>
 
-Read each line as a card. The three sides of the triangle are three cards, the three lines through the centre are three more, and the circle counts as the seventh. Pick any two cards on the right and you will find exactly one shared symbol.
+Each straight line through three symbols is a card, and so is the circle. Pick any two cards and they meet at exactly one symbol. Pick any two symbols and exactly one line passes through both.
 
-So this is a valid Dobble deck: 7 symbols, 7 cards, 3 symbols per card. The real game is the same idea, just bigger.
+This drawing is called the **Fano plane**. Again, symbols behave like points and cards behave like lines.
 
-## How Many Symbols Do We Need?
+## Cards Are Lines
 
-Say every card has *n* + 1 symbols. (Writing it this way makes the formulas cleaner. For Dobble, *n* + 1 = 8, so *n* = 7.)
+Let's make that idea official. Call each symbol a **point** and each card a **line**. A card "contains" a symbol in the same way a line passes through a point. Our two rules become:
 
-**Lemma 1.** In a deck where every two cards share exactly one symbol and every two symbols share exactly one card, each symbol appears on exactly *n* + 1 cards.
+- Any two lines meet in exactly one point.
+- Any two points lie on exactly one line.
 
-*Proof.* Pick a symbol, say the star, and a card X that does not have the star on it. X has *n* + 1 symbols. Each of those symbols appears together with the star on exactly one card, and that card meets X only at that symbol. So each symbol of X gives us a different card through the star, which gives *n* + 1 cards with the star.
+The second rule is just ordinary geometry: through two points you can draw one line. The first rule is ordinary geometry too, except for one thing. In the geometry we learn at school, parallel lines never meet. The geometry of Dobble has no parallel lines.
 
-Can there be a card with the star that we missed? No. Any such card has to share a symbol with X, so we already counted it. ∎
+A geometry like this is called a **projective plane**. The Fano plane is the smallest one. (The triangle follows the same pattern, but mathematicians usually treat it as too small to count.) Dobble is a much bigger one. So the question becomes: how big?
 
-**Lemma 2.** Such a deck has exactly *n*² + *n* + 1 symbols.
+## Counting: Why 57?
 
-*Proof.* Again pick the star. By Lemma 1 it sits on *n* + 1 cards. Each of those cards has *n* other symbols besides the star. These symbols are all different from one another, because two cards that share the star can't share anything else. And every symbol in the deck shows up on one of these cards, because every symbol appears together with the star somewhere.
+So far we have two data points:
 
-So the total is the star itself, plus *n* new symbols on each of the *n* + 1 cards:
+- 2 symbols per card → 3 symbols in total
+- 3 symbols per card → 7 symbols in total
 
-1 + (*n* + 1) · *n* = *n*² + *n* + 1. ∎
+Let's find the pattern instead of guessing it. To keep the formula tidy, say each card has *n* + 1 symbols. For the triangle *n* = 1, for Fano *n* = 2, and for Dobble *n* = 7.
+
+**Step 1: how many cards does one symbol appear on?**
+
+Pick any symbol, say the star, and pick a card X that doesn't have the star. X has *n* + 1 symbols on it.
+
+By the second rule, each symbol on X appears together with the star on exactly one card. Those cards are all different, because any card with the star meets X at only one symbol. And there are no other cards with the star, because every card has to meet X somewhere.
+
+So the star appears on exactly *n* + 1 cards. Nothing was special about the star, so this is true for every symbol.
+
+**Step 2: how many symbols are there in total?**
+
+Look at the deck from the star's point of view. It sits on *n* + 1 cards. Each of those cards has *n* other symbols on it.
+
+These symbols never repeat, because two cards that share the star can't share anything else. And every symbol in the deck appears on one of them, because every symbol pairs with the star somewhere.
 
 <figure>
   <img src="/assets/posts/dobble/counting.svg" alt="A star in the centre connected to eight cards, each adding seven new symbols, for a total of 57.">
-  <figcaption>Figure 3: Counting the symbols from the point of view of one symbol.</figcaption>
+  <figcaption>Figure 4: Counting every symbol in the deck from the point of view of the star, for 8 symbols per card.</figcaption>
 </figure>
 
-The same argument with cards and symbols swapped shows there are also *n*² + *n* + 1 cards.
+So the total is the star, plus *n* new symbols on each of its *n* + 1 cards:
 
-For the Fano plane, *n* = 2: 4 + 2 + 1 = 7 symbols and 7 cards. For Dobble, *n* = 7: 49 + 7 + 1 = **57 symbols and 57 cards**.
+1 + (*n* + 1) × *n* = ***n*² + *n* + 1**
+
+Check it against our small decks. For *n* = 1: 1 + 1 + 1 = 3. For *n* = 2: 4 + 2 + 1 = 7. Both match.
+
+Now Dobble. Each card has 8 symbols, so *n* = 7:
+
+49 + 7 + 1 = **57 symbols.**
+
+The same argument with the words "card" and "symbol" swapped shows the deck also has exactly 57 cards. Nobody chose 57. Once you pick 8 symbols per card, the rules force it.
 
 ## Where Did Two Cards Go?
 
-The box says 55 cards, not 57. As far as I know the publisher has never explained why, and the most common guess is that 55 cards fit the printing sheets better. The game doesn't care: removing cards can't break the rule that any two remaining cards share exactly one symbol.
+The box says 55 cards, not 57. As far as I know the publisher has never said why. The usual guess is that 55 cards fit their printing sheets better.
 
-You can even find which cards are missing. In a full deck every symbol appears 8 times (Lemma 1). The two missing cards share exactly one symbol, so in the shipped deck that symbol appears only 6 times, the other 14 symbols on those two cards appear 7 times, and everything else appears 8 times. Count the symbols in your box and you can rebuild the two lost cards.
+It doesn't hurt the game. Taking cards out of a deck can't break the rule that any two remaining cards share one symbol.
+
+You can even work out which two cards are missing. In a full deck every symbol appears on 8 cards (that's Step 1, with *n* = 7). The two missing cards share one symbol, so in your box that symbol appears only 6 times. The other 14 symbols on the missing cards appear 7 times. Everything else appears 8 times. Count the symbols and you can rebuild the lost cards.
 
 ## Building a Deck
 
-Knowing the size of the deck is one thing. Building it is another. Here is a construction that works whenever *n* is a prime number.
+Knowing a deck's size doesn't tell us how to make one. For that we'll go back to the picture we started with: real lines on a grid.
 
-Start with an *n* × *n* grid of points. These are the first *n*² symbols. Now draw straight lines through the grid, using arithmetic modulo *n* so that lines wrap around the edges:
+Here's the recipe, using *n* = 3 as the example (4 symbols per card, 13 cards).
 
-- the lines *y* = *mx* + *b*, for every slope *m* and every offset *b*, which gives *n*² lines;
-- the vertical lines *x* = *c*, which gives another *n* lines.
+**Step 1: lay out the points.** Draw a 3 × 3 grid of dots. That gives 9 symbols.
 
-Each of these lines passes through exactly *n* grid points. Two lines with different slopes meet in exactly one point. But two lines with the same slope are parallel and never meet, and that breaks the rule.
+**Step 2: draw lines.** Use lines of the form *y* = *mx* + *b*, where we do all the arithmetic modulo 3. "Modulo 3" means we only keep the remainder after dividing by 3, so a line that runs off the right edge wraps around to the left, like Pac-Man. With 3 slopes (0, 1, 2) and 3 offsets each, plus 3 vertical lines, that's 12 lines. Each line passes through 3 dots.
 
-The fix is the same one painters discovered with perspective: parallel lines meet "at infinity". We add one extra symbol for each slope, *n* + 1 of them in total (the *n* slopes plus vertical), and put it on every line of that slope. Now parallel lines meet at their shared extra symbol. Finally, we add one more card holding all *n* + 1 extra symbols, the **line at infinity**.
+**Step 3: fix the parallel lines.** Two lines with different slopes meet at exactly one dot. But two lines with the same slope never meet, and that breaks our rule. The fix is the same trick painters use for perspective: parallel lines meet "at infinity". So we give each slope its own extra symbol and add it to every line with that slope. Now parallel lines share exactly that symbol.
 
 <figure>
   <img src="/assets/posts/dobble/grid.svg" alt="Four 3 by 3 grids, one per slope family, with points coloured by which line they belong to. Each family gets an extra symbol.">
-  <figcaption>Figure 4: The construction for n = 3. Each colour in a panel is one line of that slope, and each family gets its own extra symbol.</figcaption>
+  <figcaption>Figure 5: The 12 lines for n = 3. Each colour in a panel is one line. All lines in a panel are parallel, so they share that panel's extra symbol.</figcaption>
 </figure>
 
-Count the cards: *n*² + *n* + 1. Count the symbols: *n*² grid points plus *n* + 1 extra ones, also *n*² + *n* + 1. Every card has *n* + 1 symbols. It matches Lemma 2 exactly.
+**Step 4: add the last card.** The four extra symbols need a card of their own, so that any two of them appear together exactly once. That card is called the **line at infinity**.
 
-Why do we need *n* to be prime? Two lines *y* = *m*₁*x* + *b*₁ and *y* = *m*₂*x* + *b*₂ meet where
+Now count. Cards: 12 + 1 = 13. Symbols: 9 dots + 4 extra = 13. Symbols per card: 3 dots + 1 extra = 4. That's *n*² + *n* + 1 = 13, exactly what the counting argument predicted.
 
-*x* = (*b*₂ − *b*₁) / (*m*₁ − *m*₂).
+### Why *n* Has to Be Prime
 
-That needs division modulo *n*, and division modulo *n* only works for every nonzero number when *n* is prime. Try *n* = 4: the number 2 has no inverse modulo 4, and some pairs of lines end up meeting twice or not at all.
+Two lines *y* = *m*₁*x* + *b*₁ and *y* = *m*₂*x* + *b*₂ meet where
 
-Here is the construction in Python, with a check that it really works for *n* = 7:
+*x* = (*b*₂ − *b*₁) ÷ (*m*₁ − *m*₂)
+
+That step divides, and division modulo *n* only works reliably when *n* is prime. Try *n* = 4. The lines *y* = 0 and *y* = 2*x* meet wherever 2*x* is a multiple of 4, which happens at *x* = 0 and at *x* = 2. Two lines meeting twice is exactly what we can't have.
+
+Dobble uses *n* = 7, which is prime, so the recipe works. Here it is in Python, with a check over all 57 cards:
 
 ```python
 from itertools import combinations
@@ -137,27 +193,32 @@ print(len(deck))  # 57
 print(all(len(set(a) & set(b)) == 1 for a, b in combinations(deck, 2)))  # True
 ```
 
-Replace the tuples with pictures and you have Dobble.
+Swap the coordinates for pictures and you have Dobble.
 
 ## Which Sizes Are Possible?
 
-The grid construction works for primes. A more general version, using finite fields instead of plain arithmetic modulo *n*, works for every prime power: 2, 3, 4, 5, 7, 8, 9, 11, and so on. So you can build a deck with 3, 4, 5, 6, 8, 9, 10 or 12 symbols per card.
+The grid recipe works whenever *n* is prime. A more general version, using structures called finite fields in place of plain remainders, also works when *n* is a power of a prime, like 4, 8 or 9. So you can build fair decks with 3, 4, 5, 6, 8, 9, 10 or 12 symbols per card.
 
-What about 7 symbols per card, meaning *n* = 6? That one is impossible. In 1782 Euler asked whether 36 officers from 6 regiments and 6 ranks could be arranged in a 6 × 6 square with no repeated regiment or rank in any row or column. He suspected not, and Gaston Tarry confirmed it in 1901 by checking the cases. A projective plane of order 6 would give you such an arrangement, so it can't exist either [2].
+What about 7 symbols per card, so *n* = 6? That one doesn't exist. The story goes back to Euler, who asked in 1782 whether 36 officers from 6 regiments and 6 ranks could stand in a 6 × 6 square with no regiment or rank repeated in any row or column. Gaston Tarry proved in 1901 that it can't be done. A projective plane with *n* = 6 would give you such an arrangement, so it can't exist either [2].
 
-In 1949, Bruck and Ryser proved a more general result: if *n* leaves a remainder of 1 or 2 when divided by 4, and *n* is not a sum of two squares, then there is no plane of order *n* [2]. That rules out 6, 14, 21, 22 and many more.
+In 1949, Bruck and Ryser found a more general rule that rules out many more sizes, including *n* = 14 and *n* = 21 [2].
 
-Order 10 passes that test (10 = 1 + 9), so it needed a different approach. In 1989, Clement Lam and his colleagues settled it with a computer search that ran for thousands of hours: no plane of order 10 exists [3].
+Their rule doesn't cover *n* = 10. That case was settled only in 1989, when Clement Lam and his colleagues finished a computer search that took years. No plane with *n* = 10 exists [3].
 
-Every order we know of is a prime power. Whether any other kind exists is still an open problem. The smallest unknown case is *n* = 12, which would be a Dobble deck with 13 symbols per card. Nobody knows if you can build it.
+Every projective plane anyone has ever found has a prime power for *n*. Nobody knows if that's always true. The smallest open case is *n* = 12, a Dobble deck with 13 symbols per card. We don't know if it can be built.
 
-## Conclusion
+## Wrapping Up
 
-I went into this thinking the deck was built with clever trial and error. It turns out the designers didn't need to be clever at all once they picked 8 symbols per card. Seven is prime, so the geometry hands you the deck for free.
+Let's retrace the steps:
 
-What I liked most is how small the core argument is. Two lemmas, both proved by looking at the deck from the point of view of a single symbol, and the number 57 falls out. The game feels like it is about fast eyes, but underneath it sits a question from the 1700s that we still haven't fully answered.
+1. Dobble's rule is "any two cards share exactly one symbol". To stop one symbol from taking over, we added "any two symbols appear together on exactly one card".
+2. Small decks showed us that symbols act like points and cards act like lines, in a geometry with no parallel lines.
+3. Counting from a single symbol's point of view forced the size: *n*² + *n* + 1. With 8 symbols per card, that's 57.
+4. A grid, modular arithmetic and one extra symbol per slope let us build the deck, as long as *n* is prime.
 
-Next time someone at the table asks why there are 55 cards, you'll know the real answer is 57.
+The game feels like it's about fast eyes. Underneath, it's a question Euler was already circling in the 1700s, and part of it is still open.
+
+Next time someone at the table asks why there are 55 cards, you can tell them the real number is 57.
 
 ## References
 
