@@ -2,6 +2,7 @@
 layout: post
 title: "The Math Behind Dobble"
 date: 2026-10-25
+tags: [math, geometry, games]
 ---
 
 <div class="tldr" markdown="1">

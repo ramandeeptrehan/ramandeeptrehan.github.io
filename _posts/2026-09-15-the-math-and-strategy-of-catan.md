@@ -2,6 +2,7 @@
 layout: post
 title: "Catan, From First Principles"
 date: 2026-09-15
+tags: [math, probability, games, simulation]
 ---
 
 <div class="tldr" markdown="1">

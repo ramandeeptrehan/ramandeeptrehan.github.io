@@ -2,6 +2,7 @@
 layout: post
 title: "C++ Still Powers Today's Core Systems"
 date: 2026-10-26
+tags: [programming, systems, ai]
 ---
 
 <div class="tldr" markdown="1">

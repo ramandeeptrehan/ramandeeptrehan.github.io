@@ -1344,6 +1344,96 @@ article h2 {
   color: #5572a8;
 }
 
+/* Tags */
+.tag {
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.72rem;
+  color: #5572a8;
+  text-decoration: none;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: -1.8rem 0 2.5rem;
+}
+
+.post-tags .tag {
+  padding: 0.1rem 0.55rem;
+  background: #f5f8ff;
+  border: 1px solid #dce5f5;
+  border-radius: 20px;
+}
+
+.post-tags .tag:hover {
+  border-color: #5572a8;
+}
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag-chip {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #dce5f5;
+  border-radius: 20px;
+  background: #fff;
+  color: #5572a8;
+  cursor: pointer;
+}
+
+.tag-chip span {
+  color: #aab6cf;
+  font-size: 0.7rem;
+}
+
+.tag-chip.active {
+  background: #5572a8;
+  border-color: #5572a8;
+  color: #fff;
+}
+
+.tag-chip.active span {
+  color: #dce5f5;
+}
+
+.archive-entry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6rem;
+  row-gap: 0.1rem;
+}
+
+.archive-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.archive-tags .tag {
+  color: #9aa8c4;
+}
+
+.writings-archive [hidden] {
+  display: none !important;
+}
+
+.tag-empty {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 1rem;
+}
+
 /* Music */
 .music-page,
 .talks-page {

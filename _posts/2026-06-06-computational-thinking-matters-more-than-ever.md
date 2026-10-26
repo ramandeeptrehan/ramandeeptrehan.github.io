@@ -2,6 +2,7 @@
 layout: post
 title: "Computational Thinking Matters More Than Ever"
 date: 2026-06-06
+tags: [engineering, ai]
 ---
 
 The art of computational thinking was never about how fast you could write code — or even about writing code at all. It has always been about solving hard, ambiguous problems that move the needle. Breaking down complex problems into digestible pieces is a hard and lifelong skill. Understanding constraints, and making decisions that survive real-world trade-offs is the core of the craft.
