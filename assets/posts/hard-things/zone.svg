@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 340" width="620" height="340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="620" height="340" fill="#fff"/>
+  <polygon points="90,270 560,270 560,30" fill="#eef1f5"/>
+  <polygon points="90,270 90,30 330,30" fill="#f8e9e6"/>
+  <polygon points="90,270 330,30 560,30" fill="#e3efe1"/>
+  <line x1="90" y1="30" x2="90" y2="270" stroke="#999" stroke-width="1.5"/>
+  <line x1="90" y1="270" x2="560" y2="270" stroke="#999" stroke-width="1.5"/>
+  <text x="40" y="150" font-size="13" fill="#555" text-anchor="middle" transform="rotate(-90 40 150)">How hard the problem is</text>
+  <text x="325" y="300" font-size="13" fill="#555" text-anchor="middle">What you already know</text>
+  <text x="170" y="100" font-size="15" fill="#a2402f" font-weight="600" text-anchor="middle">Overwhelm</text>
+  <text x="170" y="120" font-size="12" fill="#a2402f" text-anchor="middle">no foothold, so no progress</text>
+  <text x="315" y="105" font-size="15" fill="#3e7a36" font-weight="600" text-anchor="middle" transform="rotate(-34 315 105)">Productive struggle</text>
+  <text x="328" y="125" font-size="12" fill="#3e7a36" text-anchor="middle" transform="rotate(-34 328 125)">hard, but you can find a way in</text>
+  <text x="470" y="225" font-size="15" fill="#5a6b80" font-weight="600" text-anchor="middle">Comfort</text>
+  <text x="470" y="245" font-size="12" fill="#5a6b80" text-anchor="middle">easy, so little changes</text>
+  <path d="M150 255 C 230 210, 300 150, 520 50" fill="none" stroke="#333" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#333"/></marker></defs>
+  <text x="560" y="325" font-size="11" fill="#999" text-anchor="end">Dashed line: keep picking problems just past your reach as you grow</text>
+</svg>
